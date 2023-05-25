@@ -1,0 +1,642 @@
+0 .JavaSE（Java Standard Edition）标准版     以前称为 J2SE，定位在个人计算机使用，用来开发C/S架构软件
+    JavaEE(Java Platform Enterprise Edition)  企业版    以前称为 J2EE，定位在服务器端应用
+    JavaWeb  很多时候，javaweb与javaee是混用的，两者的概念并不能准确区分。
+    对javaweb的理解是以javase为基础，应用javaee及其它技术所开发的基于浏览器的b/s应用，方便用户通过浏览器与服务器进行后台交互。
+1 .控制台报Could not initialize class org.xnio.channels.Channels 解决办法：切换jdk版本
+2 .配置两个jdk JAVA_HOME+安装路径    JAVA_HOME2+安装路径   修改path %JAVA_HOME2%\bin
+3 .在本地环境上传文件的功能正常，在测试环境报no such file or directory错误 原因：服务器是linux系统，本地是windows系统，目录格式不一样，修改上传路径，改成本地的就不会报错了
+解决办法：String dicPath = DictionaryHelper.getDictionaryValue("DIC_FE_PROPERTIES","temp.upload.path");  根据DIC_FE_PROPERTIES在数据库种找到父id，然后根据父id 找到
+4 .oracle mysql date_oracle数据库date类型和mysql数据库datetime类型匹配
+5 .上传一个附件，会出现两个附件，历史数据问题。表关联，主键自增重复导致多了一个附件
+6 .（postman测试）控制台报会话已失效，添加新的token即可
+7 .mysql写法date_format(now(),'%Y%m%d')   <===>oracle写法to_char(sysdate, 'YYYYMMDD')
+8 .在mysql里面利用str_to_date（）把字符串转换为日期。 
+date_format(date,’%Y-%m-%d’) -------------->oracle中的to_char();
+str_to_date(date,’%Y-%m-%d’) -------------->oracle中的to_date();
+9 .rownum
+10 .listagg(to_char(r.short_answer),',') within group(order by r.wj_question_id,wqc.c_choice) as ans 
+<==>group_concat (to_char(r.short_answer),',')  as ans 
+11 .  唯一键（unique key）	
+12 . ls -al 显示文件创建时间	
+13 .commit ，拉代码，推代码，编译
+，打包classes/artifacts/rac，上传至rbac下，关闭tomcat,解压，开启即可	
+14 .Docker 将软件代码和其依赖，全打包在一个文件中。运行单个文件，就会生成虚拟容器。在这个虚拟容器中，不管本地的操作系统是如何的不同，此容器都能照常运行。
+简而言之，Docker的接口非常简单，可以帮助用户更好地创建和使用容器，让相同的代码在不同的环境上正常运行
+15 .debug启动发请求后，直接返回结果，原因是未清理缓存  cache="true"
+16 . nginx  正向代理：代理客户端       反向代理：代理服务端     关闭nginx指令  nginx -s stop      修改配置文件后重新加载nginx -s reload
+17 .nacos 8848启动失败问题 端口未在cluster.conf中配置   单个启动startup.cmd -m standalone 
+18 .使用关联模式条件（流控模式） ：两个有竞争关系的资源，一个优先级高，一个优先级低（想要对哪个端点限流，就点击哪个端点后面的按钮。）    
+19 .添加了lombk依赖 使用log会爆红或者@Data不起作用    解决办法：下载lombok插件
+20 .System.currentTimeMillis() 获得的是自1970-1-01 00:00:00.000 到当前时刻的时间距离,类型为long
+21 . 日期格式化：Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-mm-dd");
+        String ccc = simpleDateFormat.format(data);
+22 .集合中使用泛型的好处：1，取数据的时候不用进行对象的转型   2，声明容器时就确定好了集合中应存放的对象类型，避免容器中存在各种类型的数据而产生混乱
+23 .LinkedList list = new LinkedList();     list.poll();表示取出来第一个数据        list.peek();表示拿出来看一看，但是不取出来
+24 .Ctrl + p 查看括号内需要填写的参数
+25 .IFNULL(num,0)  如果num为空，就赋值为0，    否则为num本身
+26 .＜selectKey＞标签的作用 : 一些情况下，新增一条数据信息，但其主键（id）是数据库自动在数据库生成（自增），
+       而有些业务逻辑的处理是需要要到这个生成的主键（id）。标签就是用来获取这个生成的主键（id）
+       keyProperty：对应的model中的主键的属性名，跟数据库的主键对应
+       order：AFTER 表示 SELECT LAST_INSERT_ID() 在insert执行之后执行,多用与自增主键
+       BEFORE 表示 SELECT LAST_INSERT_ID() 在insert执行之前执行，这样的话就拿不到主键了，适合那种主键不是自增的类型
+       需要注意order属性，像MySQL一类支持自动增长类型的数据库中，order需要设置为after才会取到正确的值。
+       像Oracle这样取序列的情况，需要设置为before，否则会报错。
+       resultType：主键类型
+27 .rbac 实体类存放位置 例子：实体类src 下 com.geong.rbac.data.BizObjectObj  <==
+                                                 ==> 接口op_文件 WebContent 下 WEB_INF下 paiconfig.operation.rbac.op_dictionary.xml
+28 .SELECT * FROM tbl_dictionary WHERE DIC_CODE = "DIC_REPORT_ERMS_PATH_TEMP"
+      SELECT * FROM tbl_dictionary WHERE DIC_ID = "2522"   DIC_PARENT_ID
+29 . instr() 这个函数俗称字符查找函数，但是也可以用来做模糊查询。
+       用法1：select instr('hellohello','h') from dual /*返回结果：1,从1开始数，直到第一次出现h*/
+                   select instr('hellohello','ll') from dual /*返回结果：3，从1开始数，知道第一次出现ll*/
+       用法2：instr(字段,'关键字') > 0    相当于 字段like '%关键字%':           表示字段包含”关键字”的所有记录
+                   instr(字段,'关键字') = 1    相当于 字段like '关键字%'              表示字段以”关键字”开始的所有记录
+                   instr(字段,'关键字') = 0    相当于 字段not like '%关键字%'      表示字段不包含“关键字”的所有
+30 .在微软输入法的情况下，直接按下【Ctrl + Shift + F】即可在简体和繁体之间互相切换。
+31 .当你在浏览器地址栏中输入地址并回车的一瞬间到页面展示回来，经历了什么？
+     1. 域名解析
+     2. 发起TCP的三次握手
+     3. 建立起TCP连接后发起http请求
+     4. 服务器响应http请求，浏览器得到html代码
+     5. 浏览器解析html代码，并请求html代码中的资源（css JavaScript 图片）
+     6. 浏览器对页面进行渲染呈现                                     
+32 .把实现了Servlet接口的Java类叫做Servlet
+      > Servlet实际上就是一个接口。
+            - 狭义上的Servlet，指的就是Servlet接口
+            - 广义上的我们认为凡是实现Servlet接口的类，我们都称他是一个Servlet *****
+      > Servlet的作用：
+            1.接收用户发送的请求
+            2.调用其他的java程序来处理请求
+            3.根据处理结果，返回给用户一个页面
+33 .maven路径有问题会导致无法创建web项目 本机maven路径 D:\software\apache-maven-3.8.6\conf\settings.xml
+                                                                                m仓库路径 F:\repository
+34 .创建web项目后，无法继承HttpServlet 或 实现Servlet  解决办法：在module中的Dependencies点击右侧按钮添加tomcat      
+35 .Java Server Pages ： Java服务器端页面，也和Servlet一样，用于动态Web技术
+      最大的特点：写JSP就像在写HTML
+                区别：
+                        1.HTML只给用户提供静态的数据
+                        2.JSP页面中可以嵌入JAVA代码，为用户提供动态数据；
+36 .收发邮件：接收邮件POP3       发送邮件：SMTP
+37 .假设有项目不放在tomcat的webapp的需求。   
+           解决办法：：
+              （假设tomcat安装在C盘下，项目名为bidding）打开C:/Tomcat/conf/server.xml，在<host></host>之间加入代码：
+                <Context docBase="C:/Program/bidding" path="" debug="0"  reloadable="true"/>
+                这样重新启动tomcat，我们的主目录就被设置为bidding这个项目了。
+38 .Http协议是一种规范
+      请求头==请求体   
+      Get请求只有请求行和请求头，是没有请求正文的(因为请求参数是直接跟在地址栏中的)。 其中请求行（就是请求的第一行）由 请求方式+请求路径+请求协议版本组成 
+      http请求协议由三部分组成：请求行（就是请求的第一行），请求头（就是请求协议中的键值对），和请求正文（就是传递给服务器的数据）
+39 .  1. #{} 解析为一个 JDBC 预编译语句（prepared statement）的参数标记符，一个 #{ } 被解析为一个参数占位符；而${}仅仅为一个纯碎的 string 替换，在动态 SQL 解析阶段将会进行变量替换。
+        2. #{} 解析之后会将String类型的数据自动加上引号，其他数据类型不会；而${} 解析之后是什么就是什么，他不会当做字符串处理。
+        3. #{} 很大程度上可以防止SQL注入（SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作）；而${} 主要用于SQL拼接的时候，有很大的SQL注入隐患。
+        4. 在某些特殊场合下只能用${}，不能用#{}。例如：在使用排序时ORDER BY ${id}，如果使用#{id}，则会被解析成ORDER BY “id”,这显然是一种错误的写法。
+40 .INSERT INTO t_user_reg (EMPLOYEEID,`NAME`,NICK_NAME) VALUES ('666666','666',"橘子洲头")
+41 .服务器就是专门用来存放一些数据文件，并且24小时开机联网的电脑
+42 .DNS(Domain Name System)域名系统  域名也就是我们常说的网址  www.bilibili.com    www二级域名  bilibili一级域名  com顶级域名       ...<=== 二级<=== 一级<===顶级
+      DNS是一套让网络世界中成千上万的网址和服务器的IP地址相对应的，并可以进行查找和管理的一套机制。   把它想象成一本巨大的电话本，比如当你要访问域名www.zzq.com，首先要通过DNS查出它的IP地址是158.39.63.9。
+      例如 (网址，域名)www.bilibili.com   <-------->  61.156.196.5（IP地址）
+      域名解析的过程：（浏览器输入域名发送请求 ----> DNS服务器解析域名后返回IP地址给浏览器 ----> 浏览器根据IP地址访问对应的服务器）
+===>访问 域名为www.bilibili.com的大致流程
+      1. 通过 B 站的 DNS 服务器将域名解析为 61.156.196.5，这才是浏览器真正访问的 IP 地址
+      2. 然后会将浏览器的请求发送到该 IP 对应的服务器上，完成请求的处理
+      3. 发起TCP的三次握手,建立起TCP连接后发起http请求
+      4.服务器响应http请求，浏览器得到html代码
+      5.浏览器解析html代码，并请求html代码中的资源（css JavaScript 图片）
+      6.浏览器对页面进行渲染呈现  
+43 .带宽是量词，指的是网速的大小，比如1Mbps的意思是一兆比特每秒，这个数值是指带宽。
+      宽带是名词，说明网络的传输速率很高。宽带的标准各不相同，最初认为128kbps以上带宽的就是宽带，而以下的就是窄带。
+      但现在国内运营商一般提供至少512kbps带宽的宽带服务。也就是说，带宽是一个具体的数值，而宽带则是满足一定带宽数值的一种传输标准(服务)。
+      即：宽带是一种业务，带宽是传输速度。
+      宽带： 在数字通信中通常指64kbit/s以上信号的带宽。窄带：在数字通信中通常指64kbit/s以下信号的带宽。
+44 .CDN(Content Delivery Network)  内容分发网络 
+45 .个人电脑浏览器输入域名发送请求 ----> DNS服务器解析域名后返回IP地址给浏览器 ----> 浏览器根据IP地址访问对应的服务器上的资源
+46 .sql里下角标是从1开始的
+47 . 
+一、选中代码
+二、代码右移：TAB键
+三、代码左移：shift+TAB键
+四、代码上移：shift+alt +方向键上
+五、代码下移：shift+alt +方向键下
+48 .springboot  resource下放banner.jpg 可修改springboot启动时的动画
+49 .@Bean  给容器中添加组件。以方法名作为组件的id。返回类型就是组件类型。返回的值，就是组件在容器中的实例
+50 .git clone xxxx
+51 .修改git 用户名和地址
+      1、git config user.email # 获取用户邮箱
+      2、git config user.name # 获取用户名
+      3、git config --list # 获取用户全部信息
+      4、git config --global user.name "你的目标用户名" # 修改全局用户名
+      5、git config --global user.email "你的目标邮箱" # 修改全局邮箱
+      6、git config user.name "你的目标用户名" # 修改当前的 project 的用户名
+      7、git config user.email "你的目标邮箱" # 修改当前的 project 的邮箱
+52 .eureka -> gateway ->admin
+53 .redis-server.exe redis.windows.conf  启动redis
+54 .DAO层=mapper层
+55 .查看表注释：show create table 表名      字段注释：show full columns from 表名
+56 .序列化：将 Java 对象转换成字节流的过程。 反序列化：将字节流转换成 Java 对象的过程。
+57 .局部变量：方法的内部        成员变量：方法的外部，直接写在类当中       静态变量： static String hobby = "take a walk"; 
+58 .String类型转成BigDecimal类型  直接调用BigDecimal的有参构造，把String类型的对象传入即可   String str = "abc";     BigDecimal xxx = new BigDecimal(str);
+59 .hashcode相等，equals不一定相等 。 hashcode不相等，equals一定不相等。 equals相等，hashcode一定相等。 equals不相等，hashcode不一定不相等。
+60 .齿轮-->去掉Compact Middle Packages前面的勾给去掉就ok
+61 .重载:  方法名相同参数列表不同。 好处：提高健壮性和扩展性，相同的方法，参数列表不同，功能不一样，不用想一堆方法名，用一个方法名即可。
+                重载的最直接作用是方便了程序员可以根据不同的参数个数，顺序，类型，自动匹配方法，减少写过个函数名或方法名的重复步骤
+62 .重写：重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写！
+                重写是为了增强类的重用性和复用性，扩展性；
+63 .List和Set的区别主要是：
+        List集合类中的元素是可以重复，存在下标，元素是有顺序。
+        Set集合类中的元素是唯一的，不存在下标，元素是无序的。
+64 .为什么要使用匿名内部类： 一个接口/类的方法的某个实现方式在程序中只会执行一次，但为了使用它，我们需要创建它的实现类/子类去实现/重写。
+      此时可以使用匿名内部类的方式，可以无需创建新的类，减少代码冗余。
+65 .mybatis mapper-locations作用 ：  绑定Mapper接口和Mapper.xml映射文件
+      resultType是sql语句查询结果集的封装类型，也就是说把sql查询的结果封装在bean里返回回去，是存数据用的。 
+      paramType是从传过来的Bean中取数据放进例如insert语句的values中当实参用，是取数据用的。
+      mybatis.type-aliases-package=com.xxx.xxx.entity   这样子直接可以在parameterType和resultType写类名就行了
+      mybatis.mapper-locations=classpath:mybatis/mapper/*.xml
+66 .String类型转Long     String str  ="xxx";       Long l = Long.valueOf(str);
+67 .@ConfigurationProperties的作用：把配置类的属性与yml配置文件绑定起来的时候，还需要加上@Component注解才能绑定并注入IOC容器中，若不加上@Component，则会无效。
+      @EnableConfigurationProperties的作用：则是将让使用了 @ConfigurationProperties 注解的配置类生效,将该类注入到 IOC 容器中,交由 IOC 容器进行管理，此时则不用再配置类上加上@Component。
+      @EnableAutoConfiguration自动装配的作用：即把指定的类构造成对象，并放入spring容器中，使其成为bean对象，作用类似@Bean注解。
+68 .mybatis.type-aliases-package=com.xxx.xxx.entity   这样子直接可以在parameterType和resultType写类名就行了
+      mybatis.mapper-locations=classpath:mybatis/mapper/*.xml
+69 .springboot启动，需要扫描路径下的class文件，生成bean的定义BeanDefinition并创建bean对象，默认扫描路径是启动类所在的目录下。
+      在启动类所在包目录之外的类即使加了@Component，也无法被扫描到生成bean对象。
+70 .泛型通配符 ：
+        1、如果希望只取出，不插入，就使用 ArrayList heroList<? extent Hero>   表示这是一个Hero泛型或者其子类泛型，可以确定的是，从heroList取出来的对象，一定是可以转型成Hero的。
+             不能往里面放东西，因为放APHero就不满足<ADHero>，放ADHero又不满足<APHero> 
+        2、如果希望只插入，不取出，就使用 ArrayList heroList<? super Hero>    表示这是一个Hero泛型或者其父类泛型，可以往里面插入Hero以及Hero的子类。
+             但是取出来有风险，因为不确定取出来是Hero还是Object ，heroList的泛型可能是Hero，也可能是Object
+        3、如果希望，又能插入，又能取出，就不要用通配符 ArrayList heroList<?>
+71 .      .java文件编译后 --> .class字节码文件   
+             java程序编译成的字节码文件可以做到一次编译到处使用，字节码不分操作系统，而不同的操作系统的JVM是不同的，
+             所以只要是字节码，就能在不同的平台由不同的JVM解释成为机器码进行运行使用，所以为什么jdk的下载区分操作系统，
+             这也体现了java语言的（.class字节码文件）强大的跨平台性和可移植性。
+72 .jvm执行的三个过程：1)、加载class文件；2)、管理并分配内存；3)、执行垃圾回收机制。
+73 .String 对象是不可变的，每次对 String 的操作相当于生成一个新的 String 对象。
+       StringBuffer 和 StringBuilder是可变字符序列，对StringBuffer 和 StringBuilder 的操作是对对象本身的操作，而不会生成新的对象，
+       所以对于频繁改变内容的字符串避免使用 String，因为频繁的生成对象将会对系统性能产生影响
+74 .String str = new String("i"); 会创建两个对象，一个是在常量池中，一个是在堆中
+      String str = “i” JVM 会将其分配到常量池中，此时仅产生一个字符串对象。
+75 .  byte a1 = 6;   byte a2 = 4;    
+        a1 = a1 + a2 ; 会报错 因为 a1 + a2 的结果是int类型
+        a1 += a2;  等同于a1 = a1 +a2 ；  但不会报错，因为+=会隐式的对结果进行强制类型转换  相当于a1 = (byte)(a1 + a2) ;
+76 .读未提交  -->可能产生脏读问题
+      读已提交  -->解决脏读问题，但可能产生不可重复读问题（Update操作）
+      可重复读  -->解决脏读、不可重复读问题，但可能产生幻读问题（Insert操作）
+      可串行化  -->解决解决脏读、不可重复读、幻读问题。但这种隔离级别效率低下，比较耗数据库性能，一般不使用。
+77 .在 Java 中的反射机制是指在运行状态中，对于任意一个类都能够知道这个类所有的属性和方法；
+      并且对于任意一个对象，都能够调用它的任意一个方法；
+      这种动态获取信息以及动态调用对象方法的功能成为 Java 语言的反射机制。
+78 . 获取 Class 对象的 3 种方法 ：
+            1、调用某个对象的 getClass()方法
+                 Person p=new Person();
+                 Class clazz=p.getClass();
+            2、调用某个类的 class 属性来获取该类对应的 Class 对象
+                 Class clazz=Person.class;
+            3、使用 Class 类中的 forName()静态方法(最安全/性能最好)
+                 Class clazz=Class.forName("类的全路径"); (最常用)
+79 .同步与异步  ：
+      同步： 同步就是发起一个调用后，被调用者未处理完请求之前，调用不返回。
+      异步： 异步就是发起一个调用后，立刻得到被调用者的回应表示已接收到请求，但是被调用者并没有返回结果，此时我们可以处理其他的请求，被调用者通常依靠事件，回调等机制来通知调用者其返回结果。
+      同步和异步的区别最大在于异步的话调用者不需要等待处理结果，被调用者会通过回调等机制来通知调用者其返回结果。
+80 .阻塞和非阻塞
+      阻塞： 阻塞就是发起一个请求，调用者一直等待请求结果返回，也就是当前线程会被挂起，无法从事其他任务，只有当条件就绪才能继续。
+      非阻塞： 非阻塞就是发起一个请求，调用者不用一直等着结果返回，可以先去干其他事情。
+81 .那么同步阻塞、同步非阻塞和异步非阻塞又代表什么意思呢？
+      举个生活中简单的例子，你妈妈让你烧水，小时候你比较笨啊，在哪里傻等着水开（同步阻塞）。
+      等你稍微再长大一点，你知道每次烧水的空隙可以去干点其他事，然后只需要时不时来看看水开了没有（同步非阻塞）。
+      后来，你们家用上了水开了会发出声音的壶，这样你就只需要听到响声后就知道水开了，
+      在这期间你可以随便干自己的事情，你需要去倒水了（异步非阻塞）。
+82 .抽象 事物的共同特征    苹果，香蕉， 梨， 草莓， 可以抽象归为水果
+83 . Alt + J 替换
+84 .ThreadLocal类的作用：通常情况下，我们创建的变量是可以被任何一个线程访问并修改的。
+      而使用ThreadLocal创建的变量只能被当前线程访问，其他线程则无法访问和修改，这就是ThreadLocal类的作用
+85 .DB：数据库（Database） 即存储数据的“仓库”，数据库本质是一个文件系统。它保存了一系列有组织的数据。   数据库下面有若干表：比如Cinda数据库下面有emp8表，dept表
+      DBMS：数据库管理系统（Database Management System） 
+      是一种操纵和管理数据库的大型软件，用于建立、使用和维护数据库，对数据库进行统一管理和控制。用户通过数据库管理系统访问数据库中表内的数据。
+86 .适配非表格化的数据就用非关系型数据库
+87 .卸载mysql 1、停止mysql服务。2、控制面板卸载软件。3、删除数据文件（删除需谨慎，最好备份）。4、配置的MySQL环境变量也删了。5、MySQL8.0以下版本需要删除注册表
+88 .安装mysql 需要指定 ->1、MySQL数据库文件的存放位置(即DB数据库) 2、mysql DBMS软件的安装位置(即DBMS数据库管理系统)      也可以将两者放在一个文件夹中
+89 .因为可以设置两个mysql监听不同的端口，所以可以同时安装并使用两个mysql，但是当我们在cmd在dos窗口输入mysql - -version时，哪个mysql版本的安装路径在环境变量中靠前，就会显示哪个版本的信息。
+90 .mysql -u用户名 -P端口 -h主机地址 -p密码       例子mysql -uroot -P3306 -h127.0.0.1 -pzhang     
+      show databases;    use 数据库名;   show tables;   select  upadate delete insert    
+91 .mysql8.0版本不用修改字符集 ，默认是utf-8m4       
+      mysql5.7版本默认字符集是latin，不能识别中文，需要在my.ini中修改字符集编码为utf-8
+92 .utf-8m4四个字节表示一个字符    utf-8三个字节表示一个字符
+      查看数据目录的位置 SHOW VARIABLES like 'datadir';
+93 .数据库类型
+      关系型数据库：MySQL、Oracle、SQL Server等
+      非关系型数据库：
+             键值型数据库：Redis
+             文档型数据库：MongoDB
+             搜索引擎型数据库：ES、Solr
+             列式数据库：HBase
+             图形数据库：InfoGrid
+94 .mysql是基于C/S端的服务器软件 （要想通过客户端访问MySQL的服务器，必须保证服务是开启状态的） 
+95 .sql是用于访问和处理数据库的标准计算机语言，ANSI(美国国家标准化组织)制定了sql规范
+96 .springmvc的执行流程： 
+           名词：前端控制器DispatcherServlet  处理器Controller  处理器映射器HandlerMapping   
+                     处理器执行链HandlerExecutionChain  处理器适配器HandlerAdaptoer
+           1、用户发送请求到前端控制器
+           2、前端控制器将请求转发给处理器映射器
+           3、处理器映射器根据请求的url和请求的方式（method）找到对应的处理器（容器启动时自动将处理器和url、请求方式映射）
+           4、将处理器封装成执行链（可能不止一个请求）返回给前端控制器
+           5、前端控制器会根据处理器执行链中的处理器找到对应的处理器适配器
+           6、处理器适配器执行调用相应的处理器
+           7、处理器将处理结果及要跳转的视图封装到一个对象 ModelAndView 中并将其返回给处理器适配器 (HandlerAdaptor)
+           8、HandlerAdaptor 直接将 ModelAndView 交给 DispatcherServlet ，至此，业务处理完毕
+                ..............
+97 .三次握手 建立可靠的通信通道
+98 .转发 和 重定向 区别：
+      1> 重定向 2 次请求，请求转发 1 次请求
+      2> 重定向地址栏会变，请求转发地址栏不变
+      3> 重定向是浏览器跳转，请求转发是服务器跳转
+      4> 重定向可以跳转到任意网址，请求转发只能跳转当前项目
+      5> 请求转发不会丢失请求数据，重定向会丢失
+99 .cookie 和 session 的区别？（必会）
+        1>存储位置不同：
+           cookie 存放在客户端电脑，是一个磁盘文件。Ie 浏览器是可以从文件夹中找到。
+           session 是存放在服务器内存中的一个对象。 chrome 浏览器进行安全处理，只能通过浏
+           览器找到。Session 是服务器端会话管理技术，并且 session 就是 cookie 实现的。
+        2>存储容量不同：
+           单个 cookie 保存的数据<=4KB，一个站点最多保存 20 个 Cookie。
+           对于 session 来说并没有上限，但出于对服务器端的性能考虑，session 内不要存放过多的
+           东 西，并且设置 session 删除机制。
+        3>存储方式不同：
+           cookie 中只能保管 ASCII 字符串，并需要通过编码方式存储为 Unicode 字符或者二进制数据。
+           session 中能够存储任何类型的数据，包括且不限于 string，integer，list，map 等。
+        4>隐私策略不同：
+           cookie 对客户端是可见的，别有用心的人可以分析存放在本地的 cookie 并进行 cookie 欺骗，所以它是不安全的。
+           session 存储在服务器上，不存在敏感信息泄漏的风险。
+        5>有效期上不同：
+           开发可以通过设置 cookie 的属性，达到使 cookie 长期有效的效果。
+           session 依赖于名为 JSESSIONID 的 cookie，而 cookie JSESSIONID 的过期时间默认为-1，
+          只需关闭窗口该 session 就会失效，因而 session 不能达到长期有效的效果。
+        6>服务器压力不同：
+          cookie 保管在客户端，不占用服务器资源。对于并发用户十分多的网站，cookie 是很好的选择。
+          session 是保管在服务器端的，每个用户都会产生一个 session。假如并发访问的用户十分多，会产生十分多的 session，耗费大量的内存。
+100 .数据库三范式(必会)
+        第一范式：1NF 原子性，列（字段）不能再分，要求属性具有原子性，不可再分解；
+        第二范式：2NF 唯一性，一张表就是一个独立的对象，只表达一个意思，表中字段能被主键唯一标识。
+        第三范式：3NF 直接性，非主键字段不能对非主键字段产生依赖关系，即每个字段都要跟主键有直接关系，而不是间接关系。
+111 .普通索引：基本的索引类型，没什么限制，允许在定义了索引的列中插入重复值和NULL值。 create table stu(id int(10),name varchar(30),index index_name(name));
+        唯一索引：唯一索引与前面的普通索引类似，不同的就是：索引列的值必须唯一，但允许有空值。
+        主键索引：每张表一般都会有自己的主键，当我们在创建表时，MySQL会自动在主键列上建立一个索引，这就是主键索引。主键是具有唯一性并且不允许为NULL，所以他是一种特殊的唯一索引。
+        组合索引：组合索引也叫复合索引，指的是我们在建立索引的时候使用多个字段，例如同时使用身份证和手机号建立索引，同样的可以建立为普通索引或者是唯一索引。
+                         复合索引的使用复合最左原则。
+        全文索引：全文索引的关键字是fulltext    与like + %功能相似，但查询效率要比like高得多。全文索引有自己的语法格式，使用 match 和 against 关键字
+                         全文索引主要用来查找文本中的关键字，而不是直接与索引中的值相比较，它更像是一个搜索引擎，基于相似度的查询，而不是简单的where语句的参数匹配。
+        空间索引：空间索引是指依据空间对象的位置和形状或空间对象之间的某种空间关系按一定的顺序排列的一种数据结构，其中包含空间对象的概要信息，如对象的标识、外接矩形及指向空间对象实体的指针
+112 .java类的设计原则 ： 
+        单一职责原则
+113 .静态代码块给静态变量赋值，在类初始化时就完成了。 
+        如果在同一时间，一个静态变量同时被非静态代码块和静态代码块赋值，那么就以非静态代码块为准。
+        因为非静态代码块是在创建实例对象后执行的，晚于静态代码块的执行。因此会覆盖掉静态代码块的赋值。
+       例如 static int i ；   
+              { i = 100 }    static{ i = 200 }  
+              System.out.println(i) ;  结果为 100 ； 
+114 .如果一个类被声明为final，就意味着它不能再派生出新的子类，不能作为父类被继承。因此，一个类不能同时被声明为absrtact抽象类和final的类。
+        如果一个变量被声明为final就必须赋初始化值 ， 一是直接写在后面，二是通过代码块的方式赋值 。 但是当这个变量同时被static 和 final修饰就需要用静态代码块赋值。
+115 .如果final修饰的是一个基本类型，就表示这个变量被赋予的值是不可变的，即它是个常量；  static  int  i  = 100 ;
+        如果final修饰的是一个对象，就表示这个变量被赋予的引用是不可变的; final  Stu s = new Stu("张三")；
+116 .EJB（Enterprise JavaBean）是sun公司的JavaEE服务器端组件。
+        "把你编写的软件中那些需要执行制定的任务的类（业务逻辑），不放到客户端软件上了，放到EJB组件中打成包放到服务器上" 
+117 .javascript 内置对象 Math对象  String对象  Array对象  Date对象
+118 .SOAP是一种轻量级协议，旨在在分散的分布式环境中交换结构化信息。 SOAP使用XML技术来定义可扩展的消息传递框架，该框架提供了可以在各种基础协议之间交换的消息构造。
+119 .SOAP和HTTP有什么异同？
+        同：二者都是底层的通信协议
+        异：请求包的格式不同：SOAP是XML格式，HTTP是纯文本格式
+               SOAP可以传递结构化的数据，HTTP只能传输纯文本数据
+               SOAP相对HTTP（post/get）由于要进行XML解析，速度可能会有所降低
+120 .同源，是指协议、域名、端口都相同。  
+        例如：http://192.168.0.1:8080与https://192.168.0.1:8080不是同源，
+        因为协议不同，第一个冒号前面的为协议，中间的为域名，第二个冒号后面的为端口，只要满足有一处不同，则就不是同源。
+121 .所谓跨域就是从 A 向 B 发请求，如若他们的地址协议、域名、端口不有相同，就不是同源，就会造成跨域问题。
+122 .为什么要跨域？
+        为了安全起见，浏览器设置了同源策略，当页面执行脚本的时候，浏览器会检查访问的资源是否同源，如果不是，就会报错。
+123 .nginx反向代理可实现跨域
+124 .sql 标准局规范（ANSI）
+                       字符日期类型尽量用单引号 ' '    也可用双引号但不建议
+                       列的别名尽量用双引号  " "     也可用单引号但不建议，也可不用引号但不建议
+                       NULL参与判断结果为NULL
+                       列的别名只能在 order by 后使用，不能在 where 后使用, 因为执行顺序问题from > join..on >where >group by > having > select > order by >limit
+      2    select name , salary as sal 
+      1    from emp 
+      1    where dept_id = 10
+      3    order by sal ;
+125 .命令行创建数据库，执行sql脚本   source E:\MySQLRes\atguigudb.sql;
+126 .   dual（伪表 ）  select 1 from dual ;
+127 .进程与线程的区别：
+    （1）调度：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位
+    （2）并发性：不仅进程之间可以并发执行，同一个进程的多个线程之间也可并发执行
+    （3）拥有资源：进程是拥有资源的一个独立单位，线程不拥有系统资源，但可以访问隶属于进程的资源.
+    （4）系统开销：在创建或撤消进程时，由于系统都要为之分配和回收资源，导致系统的开销明显大于创建或撤消线程时的开销。
+        总结:
+         线程和进程的区别在于,子进程和父进程有不同的代码和数据空间,而多个线程则共享数据空间,每个线程有自己的执行堆栈和程序计数器为其执行上下文.
+         多线程主要是为了节约CPU时间,发挥利用,根据具体情况而定. 线程的运行中需要使用计算机的内存资源和CPU。
+128  .进程和线程的关系：
+　 （1）一个线程只能属于一个进程，而一个进程可以有多个线程，但至少有一个线程。
+    （2）资源分配给进程，同一进程的所有线程共享该进程的所有资源。
+    （3）处理机分给线程，即真正在处理机上运行的是线程。
+    （4）线程在执行过程中，需要协作同步。不同进程的线程间要利用消息通信的办法实现同步。线程是指进程内的一个执行单元,也是进程内的可调度实体.
+129 . Limit    (pageNum-1) * pageSize , pageSize      
+         所谓偏移量是指从某个位置开始且不包括当前位置，显示多少条记录。例如：limit  13 , 3  从第13条数据开始 ，显示往后的3条数据
+130 . LIMIT 可以使用在MySQL、PGSQL、MariaDB、SQLite 等数据库中使用，表示分页。
+         # 不能使用在SQL Server、DB2、Oracle！
+131 .为什么要设计多张表 ，而不是直接用一张大表 。
+        原因：用一张表会造成数据冗余、IO次数增加。例如emp表 有 eid , ename ,did三个字段  dept有did , dname , loc
+                  只用一张表                         大表
+                                       eid , ename , did ，dname  loc
+                                        1       张三     101    信息部    重庆
+                                        2       李四     101    信息部    重庆 
+                                        3       王五     101    信息部    重庆      
+                            ------------------------------------------------
+                 用两张表                 用户表 
+                                      eid , ename , did 
+                                        1       张三     101    
+                                        2       李四     101   
+                                        3       王五     101
+                                               部门表
+                                      did  ,  dname ,   loc
+                                      101 ,   信息部 ， 重庆
+                总结：用两张表只需要在查询时关联两张表即可，就不用重复写入多个部门名称和地理位置信息了，避免数据冗余
+                          用两张表的另一个好处：减低数据字段冗余，减少IO次数，降低内存占用空间，提升效率。
+                                   例如：我们想查询张三的员工号和姓名，只需要查询用户表即可。
+                                             但是只用一张表的话，就会连带把部门信息和位置信息查出来。
+132 .内连接(查询相匹配)：合并具有同一列的表的行，结果集中不包含一个表与另一个表不匹配的行。
+                    d , e  where d.did = e.did  或者 d join e on d.did = e.did                   join on 就是 inner join on的简写
+        外连接(查询左表或右表所有）：合并具有同一列的表的行，结果集中除了包含一个表与另一个表匹配的行之外，还查询到了左表 或 由表中不匹配的行。
+                    d left join e on d.did = e.did         left/right  join on 就是left/right  outer join on的简写
+        满外连接 (full join on)  mysql不支持 需要借助union或union all
+133 . UNION  和 UNION ALL的使用
+            UNION：会执行去重操作
+            UNION ALL:不会执行去重操作
+           结论：如果明确知道合并数据后的结果数据不存在重复数据，或者不需要去除重复的数据，
+           则尽量使用UNION ALL语句，以提高数据查询的效率。
+134 .import org.slf4j.Logger;
+        import org.slf4j.LoggerFactory;
+        private static final Logger LOGGER = LoggerFactory.getLogger(xxx.class);
+作用：在IDE控制台打印日志，便于开发，一般加在代码最上面
+135 .日志级别由高到底是：fatal -> error -> warn -> info -> debug,低级别的会输出高级别的信息，高级别的不会输出低级别的信息，如等级设为Error的话，warn,info,debug的信息不会输出
+136 .<dependency>
+	<groupId>com.google.code.gson</groupId>
+	<artifactId>gson</artifactId>
+        </dependency>
+        Gson gson = new Gson(); 
+        String json = gson.toJson(xxx); 对象转json
+        json.length();求json的长度 包含花括号、所有符号、空格、数字、字母等所有在内 例如{"1":"A b c"} 长度为12
+        gson.fromJson(Msg,HashMap.class/xxx.class);    json转实体类或容器
+137 .Interger.paseInt("123456"); 字符串转为整数    String.indexOf("a"); 返回字符a在字符串中的位置，从0开始数
+138 .节点流：直接操作数据读写的流类，比如FileInputStream
+        处理流：对一个已存在的流的链接和封装，通过对数据进行处理为程序提供功能强大、灵活的读写功能，例如BufferedInputStream（缓冲字节流）
+139 .SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //日期格式化 format.format(new Date());
+140 .ctrl + alt  鼠标左键追到实体类里
+141 .win + L 快速锁屏键
+142 .create  table  ,  alter table ,  drop table ,  rename table
+143 .# 别名用双引号 ， 字符串 日期 char year 用单引号 
+144 .Alter用法   
+       1.增加字段ALTER TABLE t_pet ADD COLUMN owner_birth DATE；
+       2.删除字段ALTER TABLE t_ pet DROP COLUMN owner_birth；
+       3.修改字段长度ALTER TABLE t_ pet MODIFY owner VARCHAR(50);
+       4.修改字段名ALTER TABLE t_ pet CHANGE  `name`   c_name VARCHAR(20)；
+       5.移动字段位置ALTER TABLE t_ pet MODIFY c_name VARCHAR(20) AFTER owner ;
+145 .UPDATE  t_emp  SET  c_name = 'jacky'  WHERE  emp_id = '101'；
+146 .修改表名RENAME TABLE employees TO employees_info;
+147 . 网址前加 read:   即可进入阅读者模式，即可复制不让复制的内容
+148 .受唯一性约束unique的字段，值不能相同，但是可以添加多个NULL值
+149 .如果是多列组合的复合主键约束，那么这些列都不允许为空值，并且组合的值不允许重复
+150 .主表和从表(父表和子表)：主表（被引用的表，这个字段必须是主键约束或唯一约束，在从表中是外键约束） ， 从表（引用其他表）
+        例如 employees(从表)的字段department_id是 departments(主表)的主键
+        注意：建表时需要先创建主表再创建从表。从表的数据可以删，但主表的数据不能任意删。比如员工表emloyees中10号部门有三个人(可以删)，部门表departments的10号部门(不能删)
+151 .一个表只能有一个主键约束，可以有多个外键约束。
+152 .查询三天内的数据MySQL写法：SELECT * FROM datetest WHERE create_date >= DATE_SUB(NOW(),INTERVAL 3 day)
+                                       Oracle写法：SELECT * FROM datetest where create_date >= trunc(sysdate - 3)
+153 .Oracle中的trunc作用是截取  trunc(8 - 1) 结果为7  ， trunc(66.123 , 2) 结果为66.12
+154 .Oracle中往date日期类型中插入数据的的方式,insert into dbtest VALUES(1,'zzb',to_date('2023-02-01','yyyy-mm-dd'));
+155 .xml大小写转义符  大于号> &gt;   小于号< &lt;
+156 .Oracle中日期类型与字符串类型进行比较时，要用to_date('','')把字符串转成date日期类型，尽量不要用to_char把date日期类型转成字符串类型。因为可能会出错。
+157 .视图view的本质就是存储SELECT查询出来的结果，如果查询的表或视图被删除了，那么这个视图也就不存在了。
+158 .dos窗口 mysql -uroot -pzhang  use 数据库名xxx；show tables;  
+159 .class字节码文件
+160 .HTTP协议是客户端和服务器端之间数据传输的格式规范，格式简称为“超文本传输协议”。
+161 .请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数   
+           BufferedReader           request.getReader()：获取字符输入流，只能操作字符数据
+           ServletInputStream     requesrt.getInputStream()：获取字节输入流，可以操作所有类型数据
+162 .eclipse查看项目编译路径classes   右键项目>Properties>Java Build Path>Source>Browse
+163 .request中  封装了请求头数据、请求正文数据，如果是GET请求，那么就没有正文；
+164 .request是域对象！在JavaWeb中一共四个域对象
+        ServletContext 域--- application
+        session 域---session
+        request 域---request
+        pageContext域---pageContext
+165 .测试环境上放字节码文件.class
+166 .Linux指令：hostnamectl set-hostname Linux_copy修改主机名、 su root切换用户、reboot重启客户机、vi /etc/sysconfig/network-scripts/ifcfg-ens33查看ipdizhi1
+       systemctl status mysqld查看服务状态、systemctl start mysqld开启服务
+167 .  rpm -ivh      i安装  v提示信息    h显示进度条
+168 .SQL编写建议：
+        1. 关键字和函数名称全部大写
+        2. 数据库名、表名、表别名、字段名、字段别名等全部小写
+        3. 分号结尾 
+169 .Linux下数据库文件默认存放目录 /var/lib/mysql
+        Linux下数据库相关命令默认存放目录 /usr/bin/   和 /usr/sbin/ 
+        Linux配置文件目录 /etc   例如：my.cnf   对应windows下的my.ini
+170 . InnoDB下：
+        MySQL5.7  
+             .frm文件存放表结构信息(字段名，字段类型，约束，....)
+             .ibd文件(独立表空间)存放数据   
+              ibdata1系统表空间也可存放数据，但一般都存放在独立表空间中
+        MySQL8.0将.frm和.ibd合并到了.ibd中
+171 .InnoDB、MyISAM存储引擎负责把表存储在磁盘上，操作系统用来管理磁盘的结构被称为文件系统。
+       专业表述即：InnoDB、MyISAM存储引擎把表存储在文件系统上。（磁盘<==>文件系统）
+172 .首先，客户端要和sql服务器建立连接，进行账号认证和权限校验，认证之后，客户端发送查询sql脚本给服务器,服务器查询缓存，
+        如果命中了缓存就立刻返回结果,否则进入下一个阶段,服务器端进行sql解析与处理，再由优化器生成对应的执行计划。
+        MySQL根据化器生成的执行计划，在调用存储引擎的API来执行查询，最后将结果返回给客户端
+173 .mysql组件  1、连接器:负责客户端和服务器建立连接进行权限校验，保持连接，管理，连接。
+       2、查询缓存:一般大多数情况下不推荐使用查询缓存，因为难以命中，查询语句中包含一些不确定的数据，则不会被缓存。MySQL 8.0也删除了缓存。
+       3、解析器:词法分析(select where 等关键字)、语法解析(sql的语法) 、语义解析(表名、字段名)。
+       4、预处理器:一次编译，多次运行。5、查询优化器:优化器有CBO和RBO两种，目的是为了得到目标sql的执行计划。6、执行计划:重构sql，调整索引，提升查询效率。7、存储引擎
+174 .sql语句出错  控制台报错顺序 1，关键字：SELECT FROM WHERE 等 . 2 ,语法错误：例如JOIN ON emp dept 等.   3 ,字段错误
+175 .show profile记录sql的执行细节以及所耗费的时间
+176 .存储引擎也叫表处理器，决定了表的存储格式。
+176 .优点：相较于MyISAM存储引擎 ，InnoDB优势 1，支持外键 2，支持事物  3，支持行锁  4，除了增加和查询，还需要更新，删除操作，那么优先选择InnoDB。
+        缺点：相较于MyISAM存储引擎，InnoDB写的处理效率差一些，并且会占用更多的磁盘空间以保存数据和索引。MyISAM只缓存索引，不缓存真实数据；InnoDB不仅缓存索引还要缓存真实数据， 对内存要求较
+        高 ，而且内存大小对性能有决定性的影响。
+177 .MyISAM :
+MyISAM提供了大量的特性，包括全文索引、压缩、空间函数(GIS)等，但MyISAM 不支持事务、行级
+锁、外键 ，有一个毫无疑问的缺陷就是 崩溃后无法安全恢复 。
+5.5之前默认的存储引擎
+优势是访问的 速度快 ，对事务完整性没有要求或者以SELECT、INSERT为主的应用
+针对数据统计有额外的常数存储。故而 count(*) 的查询效率很高
+表名.frm 存储表结构
+表名.MYD 存储数据 (MYData)
+表名.MYI 存储索引 (MYIndex)
+应用场景：只读应用或者以读为主的业务
+178 .索引（Index）是帮助MySQL高效获取数据的数据结构。 不同存储引擎，索引可能不同。比如InooDB下的索引是B+Tree.
+179 .根据主键构建的索引称为聚簇(聚集)索引（注：主键索引不一定就是聚簇索引，在InnoDB引擎下的才是，MyIASAM就不是），根据非主键构建的索引称为非聚簇(非聚集)索引。非聚集索引又称二级索引或者辅助索引。
+        一张表只能有一个聚簇索引，可以有多个非聚簇索引
+180 .聚簇索引优点：
+        数据访问更快 ，因为聚簇索引将索引和数据保存在同一个B+树中，因此从聚簇索引中获取数据比非聚簇索引更快聚簇索引对于主键的 排序查找 和 范围查找 速度非常快
+        按照聚簇索引排列顺序，查询显示一定范围数据的时候，由于数据都是紧密相连，数据库不用从多个数据块中提取数据，所以 节省了大量的io操作 。
+181 .聚簇索引缺点：
+        插入速度严重依赖于插入顺序 ，按照主键的顺序插入是最快的方式，否则将会出现页分裂，严重影响性能。因此，对于InnoDB表，我们一般都会定义一个自增的ID列为主键
+        更新主键的代价很高 ，因为将会导致被更新的行移动。因此，对于InnoDB表，我们一般定义主键为不可更新二级索引访问需要两次索引查找 ，第一次找到主键值，第二次根据主键值找到行数据
+182 .数据库缓冲池，就是磁盘中的数据放在内存中。提供缓冲池就是为了可以在内存中可以直接访问数据。
+183 .存储引擎也叫表处理器，负责表中数据的读取和写入操作
+184 .类与类之间的关系，依赖，泛化(继承），实现，关联，聚合，组合
+185 .关联关系是属性层面的一种依赖。聚合关系，组合关系都是关联关系的一种特例。
+186 .MyISAM引擎使用 B+Tree 作为索引结构，叶子节点的data域存放的是 数据记录的地址 。
+        InnoDB引擎使用 B+Tree 作为索引结构，叶子节点的data域存放的是 数据记录（聚簇索引情况下），二级索引存放的是主键值。InnoDB下必然包含一个聚簇索引。二级索引可以有多个。
+187 .MyISAM中是没有聚簇索引的。  MyISAM索引文件仅仅保存数据记录的地址，所以查询数据时一定会回表（因为是拿着地址去.MYD文件中找数据，因此速度很快）。
+188 .InnoDB中有自适应Hash索引，会将经常查询的数据放到内存中。
+189 .MySQL的InnoDB存储引擎在设计时是将根节点常驻内存的，可减少一次I/O，所以说查找某一键值的行记录时最多只需要1~3次磁盘I/O操作。
+190 .B+树的每一个叶子节点又叫数据页。非叶子节点叫目录页，本质上来讲也叫数据页。
+191 .磁盘与内存交互的基本单位：页 。  页与页之间用双向链表连接(逻辑上的顺序连接) ， 页中的数据记录是单链表连接。
+192 .InnoDB中删除数据时并非真的将数据记录删掉了，而是改变了行格式中记录头信息中的delete_mask值改为1(1 代表删除，0代表未删除)，next_record改为0，代表不指向下一条记录 。
+因为删除一条记录可能需要移动大量数据记录。
+193 .在InnoDB引擎中必然会有聚簇索引。首先，会以主键构建聚簇索引，没有主键会以unique构建聚簇索引，
+       假如既没主键也没unique，那么系统会自动提供一个隐藏的字段row_id来帮助完成聚簇索引的搭建。  row_id作用：唯一标识一条记录。
+194 .COMPACT行格式：  1.变长字段长度列表  2.NULL值列表 3.记录头信息(delete_mask,next_record,...)  4.记录真实数据(数据，隐藏值(row_id 、 transaction、 roll_polnter)) 
+195 .MySQL中数据字典就是系统表。用来存放数据库相关信息的表。系统表的数据通常由数据库系统维护，程序员通常不应该修改，只可查看。
+196 .联合索引遵循最左前缀原则。
+197 .添加索引的三种方式：(给COMMENT字段添加索引)
+      1.CREATE INDEX idx_cmt ON t_book(COMMENT);                   删除DROP INDEX idx_cmt ON t_book;
+      2.ALTER TABLE t_book ADD INDEX idx_cmt(COMMENT);       删除ALTER TABLE t_book DROP INDEX idx_cmt;
+      3.CREATE TABLE t_book(INDEX idx_cmt (COMMENT));
+198 .隐藏索引可以用来测试删除索引后对 SQL 查询性能的影响 (实际未删除)
+199 .哪些情况适合创建索引
+        #① 字段的数值有唯一性的限制
+        #② 频繁作为 WHERE 查询条件的字段
+        #③ 经常 GROUP BY 和 ORDER BY 的列  （因为使用索引时，这个列自然就排好序了，那么当我们在sql中使用GROUP BY 或 ORDER BY时就会很快，索引已经帮我们排好了）
+        #④ UPDATE、DELETE 的 WHERE 条件列
+        #⑤ DISTINCT 字段需要创建索引
+        #⑥ #### 多表 JOIN 连接操作时，创建索引注意事项
+        #⑦ 使用列的类型小的创建索引
+        #⑧ 使用字符串前缀创建索引
+        #⑨ 区分度高(散列性高)的列适合作为索引
+        #⑩ 使用最频繁的列放到联合索引的左侧
+200 .表空间表示一本书，段表示书中的章节，区表示每章节的小节，页表示书的每一页，行就是每页的每行数据。表空间里有多个段，一个段包含256个区，一个区包含64个页，一个页为16K。
+201 .慢查询作用：定位执行慢的SQL、 调优时开启，平时最好关闭，会影响性能。
+202 .EXPLAIN 查看执行计划。（DESCRIBE也可）
+203 .字段发生隐式转换后，索引会失效
+204 show warnings;
+204 .一个段包含256个区(256M大小)、一个区包含64个连续的页，默认大小为 1MB (64*16K)。
+        表空间里有多个段，一个段包含256个区，一个区包含64个页，一个页为16K。
+205 .根据查询条件定位到数据在某一页中，直接把页加载到内存中。
+206 .查询数据时 尽量不要用SELECT  * ， 可能会导致二级索引失效， 因为查询所有字段数据时，优化器会跳过二级索引，优先选择使用聚簇索引。
+207 .1. 使用join语句，性能比强行拆成多个单表执行SQL语句的性能要好；
+        2. 如果使用join语句的话，需要让小表做驱动表。
+208 .对于内连接来讲，如果表的连接条件中只能有一个字段有索引，则有索引的字段所在的表会被作为被驱动表出现。
+        对于内连接来说，在两个表的连接条件都存在索引的情况下，会选择小表作为驱动表。“小表驱动大表”
+        >1. 使用join语句，性能比强行拆成多个单表执行SQL语句的性能要好；
+        >2. 如果使用join语句的话，需要让小表做驱动表。
+209 .没有回表叫覆盖索引，一个索引包含了满足查询结果的数据就叫做覆盖索引。
+210 .  <>以及!=可能会导致索引失效。因为会全表扫描二级索引，优化器会选择聚簇索引放弃使用二级索引。（视情况而定）
+211 .索引条件下推(ICP)，在回表之前过滤。
+        联合索引（zipcode，lastname）
+       WHERE zipcode='000001'   使用到了索引
+       AND lastname LIKE '%张%'  此处因为索引失效，优化器会使用索引下推进行过滤，过滤后能减少回表次数
+       AND address LIKE '%北京市%';  未添加索引，所以不会索引下推。
+212 .主表不能随便删除数据，从表不能随意添加数据。
+213 .数据库调优维度及步骤：
+       1、选择合适的DBMS
+       2、优化表设计
+       3、优化逻辑查询
+       4、优化物理查询
+       5、使用Redis或Memcached作为缓存
+       6、库级优化
+214 .事务：一组逻辑操作单元，使数据从一种状态变换到另一种状态。
+215 . 事务的ACID特性
+       1、原子性（atomicity）：原子性是指事务是一个不可分割的工作单位，要么全部提交，要么全部失败回滚。
+       2、一致性（consistency）：根据定义，一致性是指事务执行前后，数据从一个 合法性状态 变换到另外一个 合法性状态 。这种状态
+       是 语义上 的而不是语法上的，跟具体的业务有关。
+       3、隔离型（isolation）：事务的隔离性是指一个事务的执行 不能被其他事务干扰 ，即一个事务内部的操作及使用的数据对 并发 的
+       其他事务是隔离的，并发执行的各个事务之间不能互相干扰。
+       4、持久性（durability）：持久性是指一个事务一旦被提交，它对数据库中数据的改变就是 永久性的 ，接下来的其他操作和数据库
+       故障不应该对其有任何影响
+       隔离级别：
+       1.读未提交：有脏读，不可重复读，幻读问题
+       2.读已提交：有不可重复读，幻读问题（mysql中使用MVCC解决脏读问题，其他数据库可能是通过锁的方式）
+       3.可重复读：有幻读问题（在mysql中，幻读问题通过MVCC解决）
+       4.串行化：   通过加锁解决脏读、不可重复读、幻读问题，但是开销大，一般不用这种隔离级别
+214 .InnoDB存储引擎下，一个事务中对某条记录所做的修改操作，会自动为这条记录加上记录锁(排他锁)
+215 .MVCC（multiversion Concurrency Control）多版本并发控制。见名知意，MVCC就是通过多个数据行的版本对实现数据库的并发控制的。
+        所谓并发，就是在某些隔离级别下，可以看到被别人修改前或后的数据，这样在查询的时候就不用等别人更新完我才能看到或操作了。
+        MVCC在Mysql InnoDB中的实现主要是为了提供数据库的并发性能，使得即使有读写冲突，也能做到不加锁。其思想其实是乐观锁的一种实现方式。
+216 .MVCC三剑客：隐藏字段(trx_id、roll_pointer)、UndoLog版本链()、ReadView规则(读视图)。“快照读”：
+217 .快照读与当前读：10字真言：读为快照读，写为当前读。
+218 .MVCC是针对读已提交、可重复读的两种隔离级别。用来解决脏读、不可重复读、幻读。    
+        使用SELECT查询语句时，会生成一个ReadView 。 
+        1.在读已提交的隔离级别下，一个事务中每执行一次查询，都会生成一个全新的ReadView。因此会产生不可重复读问题。
+        2.在可重复读这个隔离级别下，一个事务只会在第一个查询语句执行时生成一个ReadView ，后面的所有查询都使用这一个ReadView。解决了不可重复读、幻读问题。
+219 .binlog日志针对增删改，，查看二进制日志文件存储位置以及一些其他信息 show variables like '%log_bin%';
+220 .show binary logs;  查看目前有哪些二进制日志文件。
+221 .单个数据库备份mysqldump -uroot -p  DB1>存放路径/xxx.sql
+        多个数据库备份mysqldump -uroot -p  DB1 DB2>存放路径/xxx.sql
+        单个表备份mysqldump -uroot -p  DB1 emp1>存放路径/xxx.sql
+        多个表备份mysqldump -uroot -p  DB1 emp1 emp2>存放路径/xxx.sql
+        表中一条或多条数据备份........
+222 .mv 文件 移动路径  。  cp
+223 .show profile cpu, block io, memory,swaps,context switches,source for query 1;查看出一条SQL语句执行的各种资源消耗情况，比如CPU，IO等:
+224 .设计模式本质是提高软件的维护性，通用性，扩展性，并降低软件的复杂度
+        创建型模式：“怎么合理的创建对象”
+        结构型模式：“怎么让软件更具伸缩性、弹性、扩展性”
+        行为型模式：“怎么让方法的设计更合理”
+225 .JDK中的Runtime用到了饿汉式单例模式  、 Calendar使用了简单工厂模式  、spring中bean的创建用到了原型模式prototype
+        JDK中的StringBuilder建造者模式、IO流InputStream装饰者模式、JDBC桥接模式、DispacherServlet适配器模式、HashMap组合模式、
+        MyBatis中的Configuration外观模式、Interger.ValueOf 享元模式（享(共享)元(对象)）String常量池，数据库连接池，
+226 .同一个类中可以直接调用方法
+227 .钩子方法默认不做任何事情，子类可以视情况选择要不要覆盖
+228 .    下载安装zookeeper
+             1.下载
+             2.解压 tar -zxvf apache-zookeeper-3.8.0-bin.tar.gz
+             3.拷贝config目录下的zoo_sample.cfg并修改为zoo.cfg
+             4.修改zoo.cfg配置文件
+228 .Zookeeper作用：管理broker、consumer
+228 .lsof -i:9092  或者 ps -ef | grep kafka        zookeeper(默认端口2181)     kafka(默认端口9092)        /usr/etc/software/
+229 .   bin下 启动zookeeper(默认端口2181)      zkServer.sh start      关闭./zsServer.sh stop
+229 .        bin目录下
+              ./kafka-server-start.sh ../config/server.properties &    启动kafka
+               ./kafka-server-start.sh  -daemon ../config/server.properties &  守护进程的方式器动kafka
+               ./kafka-server-stop.sh   关闭kafka
+               ./kafka-topics.sh --create --zookeeper 192.168.89.126:2181 --replication-factor 1 --partitions 1 --topic szr-topic1  创建topic
+                ./kafka-topics.sh --list --zookeeper 192.168.89.126:2181   查看topic
+               cd /tmp/kafka-logs/   
+           
+./kafka-console-producer.sh --broker-list 192.168.89.126:9092 --topic szr-topic1        创建生产者
+./kafka-console-consumer.sh --bootstrap-server 192.168.89.126:9092 --from-beginning --topic szr-topic1      创建消费者
+find ./software/ -name \*kafka_\* | head -1 | grep -o '\kafka[^\n]*'   查看版本号 在存放kafka的上两层目录下执行  例如software的上层etc
+230 .rpm -qa | grep java查看与java相关的文件
+       rpm -e --nodeps java-1.8.0-openjdk-headless-1.8.0.181-7.b13.el7.x86_64   删除
+231 .     \cp -rf conf.txt ../../dir1/dir1son/       复制+覆盖     
+       \cp -rf  /home/software/kafka21/config/server.properties /home/software/kafka34/config/
+232 .   top cpu使用情况  df -h文件系统使用情况     free -m内存使用情况
+233 .抽象类实现接口可以有选择的实现其中的方法。普通实现接口，必须实现全部方法
+234 . mysql登录时出现Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock
+         可能是顺序问题:
+         解决办法：修改/etc/my.cnf   把socket=/var/lib/mysql/mysql.sock放到datadir=/var/lib/mysql上面
+
+235 .linux   netstat -anp | grep  端口号  kill -9  进程号
+        windows  netstat -ano | findstr  端口号   taskkill -f  /pid 进程号
+location / {
+           # root   html;
+           # index  index.html index.htm;
+           proxy_set_header Host $http_host;
+           proxy_pass http://127.0.0.1:8080/img/1.jpg;
+        }
+236 .上传的图片无法访问 图片权限问题 chmod 644 abc.jpg
+237 .  shell脚本
+238 .DM数据迁移工具使用 1，输入源信息 2，输入目标信息  3，选择
+239 .Gson   String转Map    
+        String content = “{first=abc,second=0e123}”;
+        Gson gson = new Gson();
+        Map<String,Object> contentMap = gson.fromJson(content, Map.class);
+240 .模糊查询的几种方式
+        1.     student_name like concat('%',#{studentName},'%')
+        2.     student_name like '%${studentName}%'
+        3.     student_name like concat('%','${studentName}','%')
+        4.     student_name like '%'||#{studentName}||'%'
+241 .  IN (${xxxx})
+242 .区别：ibatis
+       isNotNull:判断属性是否不为null    替换mybatis <if test="username != null"> xxx=#{xxx}  </if>
+       isNotEmpty:判断属性是否不为null，且判断属性不为空字符串   <if test="status != null and status != ''">  xxx=#{xxx}  </if>
+243 .    创建备份表 create table t1_copy  as  select * from t1
+            表信息平移 insert into t2  select * from t3  (这种写法要求表t2拥有t3中的所有字段)
